@@ -15,7 +15,7 @@ run-setup:
 #Chạy container EL, CL, VC
 .PHONY: run
 run:
-	@sudo python3 ./scripts/run.pyVC
+	@sudo python3 ./scripts/run.py
 
 #Tạo deposit 
 .PHONY: run-deposit
