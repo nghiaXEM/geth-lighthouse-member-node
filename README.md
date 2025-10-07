@@ -13,7 +13,7 @@ Hệ thống được thiết kế dễ triển khai, có thể mở rộng bằ
 Sau đó chạy lệnh:
 
 ```bash
-make install_dependencies
+make install-dependencies
 ```
 
 ---

@@ -11,19 +11,21 @@ client = docker.from_env()
 
 #Path
 PWD = os.path.abspath(os.path.dirname(__file__))
+DATA_PATH = os.path.join(PWD, "../data")
+CONFIGS_PATH = os.path.join(PWD, '../configs')
 
 #Images
 IMG_GENESIS_GENERATOR = "ethpandaops/ethereum-genesis-generator:master"
 
 def run_genesis_generator():
     #Create data directory
-    os.makedirs(os.path.join(PWD, "data"), exist_ok=True)
+    os.makedirs(DATA_PATH, exist_ok=True)
 
     docker_cmd = [
         "docker", "run", "--rm", "-it",
         "-u", str(os.getuid()),
-        "-v", f"{os.path.join(PWD,'../data')}:/data",
-        "-v", f"{os.path.join(PWD, '../config')}:/config",
+        "-v", f"{DATA_PATH}:/data",
+        "-v", f"{CONFIGS_PATH}:/config",
         IMG_GENESIS_GENERATOR,
         "all"
     ]
@@ -37,12 +39,11 @@ def run_genesis_generator():
     print("✅ Genesis tạo thành công!")
 
     # === Xử lý folder sau khi sinh genesis ===
-    data_dir = os.path.join(PWD, "data")
-    parsed_dir = os.path.join(data_dir, "parsed")
-    metadata_dir = os.path.join(data_dir, "metadata")
-    network_configs_dir = os.path.join(data_dir, "network-configs")
-    jwt_dir = os.path.join(data_dir, "jwt")
-    out_dir = PWD  # move ra ngoài 1 cấp, tức là cùng cấp với data
+    parsed_dir = os.path.join(DATA_PATH, "parsed")
+    metadata_dir = os.path.join(DATA_PATH, "metadata")
+    network_configs_dir = os.path.join(DATA_PATH, "network-configs")
+    jwt_dir = os.path.join(DATA_PATH, "jwt")
+    out_dir =  os.path.join(PWD, "../")  # move ra ngoài 1 cấp, tức là cùng cấp với data
 
     # Move parsed vào metadata
     if os.path.exists(parsed_dir) and os.path.exists(metadata_dir):
