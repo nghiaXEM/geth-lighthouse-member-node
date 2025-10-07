@@ -6,6 +6,17 @@ SHELL = /bin/bash
 healthy:
 	@echo "OK!"
 
+# Cài đặt các dependencies
+.PHONY: install-dependencies
+install-dependencies:
+	@chmod +x ./scripts/install_dependencies.sh
+	@./scripts/install_dependencies.sh
+
+#Tạo genesis data
+.PHONY: gen-genesis
+gen-genesis:
+	@sudo python3 ./scripts/gen_genesis_data.py
+
 #Kiểm tra môi trường
 .PHONY: run-setup
 run-setup:
